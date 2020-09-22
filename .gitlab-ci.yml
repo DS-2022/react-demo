@@ -28,4 +28,4 @@ deploy:
     name: staging
     url: https://react-demo-ds2020.herokuapp.com/
   only:
-    - master
+    - production
