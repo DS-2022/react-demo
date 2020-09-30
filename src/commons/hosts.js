@@ -1,3 +1,3 @@
 export const HOST = {
-    backend_api: 'http://localhost:8080',
+    backend_api: 'https://spring-demo-ds2020.herokuapp.com/',
 };
