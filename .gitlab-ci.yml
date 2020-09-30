@@ -10,22 +10,14 @@ variables:
   CI: ""
 
 build:
+  image: docker:latest
+  services:
+    - docker:dind
   stage: build
-  image: node:11
   script:
-    - npm install --progress=false
-    - npm run build
+    - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE:latest
 
-deploy:
-  stage: deploy
-  image: ruby:2.3
-  script:
-    - apt-get update -qy
-    - apt-get install -y ruby-dev
-    - gem install dpl
-    - dpl --provider=heroku --app=react-demo-ds2020 --api-key=$HEROKU_API_KEY --skip_cleanup
-  environment:
-    name: staging
-    url: https://react-demo-ds2020.herokuapp.com/
-  only:
-    - master
