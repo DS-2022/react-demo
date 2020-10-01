@@ -6,6 +6,8 @@ import Button from "react-bootstrap/Button";
 import * as API_USERS from "./api/person-api";
 import APIResponseErrorMessage from "../../commons/errorhandling/api-response-error-message";
 import {Col, Row} from "reactstrap";
+import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Label} from 'reactstrap';
+
 
 
 class PersonForm extends React.Component {
@@ -71,13 +73,9 @@ class PersonForm extends React.Component {
         const name = event.target.name;
         const value = event.target.value;
 
-        const updatedControls = {
-            ...this.state.formControls
-        };
+        const updatedControls = this.state.formControls;
 
-        const updatedFormElement = {
-            ...updatedControls[name]
-        };
+        const updatedFormElement = updatedControls[name];
 
         updatedFormElement.value = value;
         updatedFormElement.touched = true;
@@ -93,6 +91,7 @@ class PersonForm extends React.Component {
             formControls: updatedControls,
             formIsValid: formIsValid
         });
+
     };
 
     registerPerson(person) {
@@ -125,65 +124,53 @@ class PersonForm extends React.Component {
         return (
             <div>
 
-                    <Row>
-                        <Col>
-                            <label> Name: </label>
-                        </Col>
-                        <Col sm={{size: '8'}}>
-                            <TextInput name="name"
-                                       placeholder={this.state.formControls.name.placeholder}
-                                       value={this.state.formControls.name.value}
-                                       onChange={this.handleChange}
-                                       touched={this.state.formControls.name.touched? 1 : 0}
-                                       valid={this.state.formControls.name.valid? 1 : 0}/>
-                        </Col>
-                        {this.state.formControls.name.touched && !this.state.formControls.name.valid &&
-                        <div className={"error-message row"}> * Name must have at least 3 characters </div>}
-                    </Row>
+                <FormGroup id='name'>
+                    <Label for='nameField'> Name: </Label>
+                    <Input name='name' id='nameField' placeholder={this.state.formControls.name.placeholder}
+                           onChange={this.handleChange}
+                           defaultValue={this.state.formControls.name.value}
+                           touched={this.state.formControls.name.touched? 1 : 0}
+                           valid={this.state.formControls.name.valid}
+                           required
+                    />
+                    {this.state.formControls.name.touched && !this.state.formControls.name.valid &&
+                    <div className={"error-message row"}> * Name must have at least 3 characters </div>}
+                </FormGroup>
 
-                    <Row>
-                        <Col>
-                            <label> Email: </label>
-                        </Col>
-                        <Col sm={{size: '8'}}>
-                            <TextInput name="email"
-                                       placeholder={this.state.formControls.email.placeholder}
-                                       value={this.state.formControls.email.value}
-                                       onChange={this.handleChange}
-                                       touched={this.state.formControls.email.touched? 1 : 0}
-                                       valid={this.state.formControls.email.valid? 1 : 0} />
-                        </Col>
-                        {this.state.formControls.email.touched && !this.state.formControls.email.valid &&
-                        <div className={"error-message"}> * Email must have a valid format</div>}
-                    </Row>
+                <FormGroup id='email'>
+                    <Label for='emailField'> Email: </Label>
+                    <Input name='email' id='emailField' placeholder={this.state.formControls.email.placeholder}
+                           onChange={this.handleChange}
+                           defaultValue={this.state.formControls.email.value}
+                           touched={this.state.formControls.email.touched? 1 : 0}
+                           valid={this.state.formControls.email.valid}
+                           required
+                    />
+                    {this.state.formControls.email.touched && !this.state.formControls.email.valid &&
+                    <div className={"error-message"}> * Email must have a valid format</div>}
+                </FormGroup>
 
-                    <Row>
-                        <Col>
-                            <label> Address: </label>
-                        </Col>
-                        <Col sm={{size: '8'}}>
-                            <TextInput name="address"
-                                       placeholder={this.state.formControls.address.placeholder}
-                                       value={this.state.formControls.address.value}
-                                       onChange={this.handleChange}
-                                       touched={this.state.formControls.address.touched? 1 : 0}
-                                       valid={this.state.formControls.address.valid? 1 : 0} />
-                        </Col>
-                    </Row>
+                <FormGroup id='address'>
+                    <Label for='addressField'> Address: </Label>
+                    <Input name='address' id='addressField' placeholder={this.state.formControls.address.placeholder}
+                           onChange={this.handleChange}
+                           defaultValue={this.state.formControls.address.value}
+                           touched={this.state.formControls.address.touched? 1 : 0}
+                           valid={this.state.formControls.address.valid}
+                           required
+                    />
+                </FormGroup>
 
-                    <Row>
-                        <Col>
-                            <label> Age: </label>
-                        </Col>
-                        <Col sm={{size: '8'}}>
-                            <TextInput name="age" pattern="[0-9]*"
-                                       placeholder={this.state.formControls.age.placeholder}
-                                       value={this.state.formControls.age.value}
-                                       onChange={this.handleChange}
-                                       touched={this.state.formControls.age.touched? 1 : 0}
-                                       valid={this.state.formControls.age.valid? 1 : 0}/>
-                        </Col>
-                    </Row>
+                <FormGroup id='age'>
+                    <Label for='ageField'> Age: </Label>
+                    <Input name='age' id='ageField' placeholder={this.state.formControls.age.placeholder}
+                           onChange={this.handleChange}
+                           defaultValue={this.state.formControls.age.value}
+                           touched={this.state.formControls.age.touched? 1 : 0}
+                           valid={this.state.formControls.age.valid}
+                           required
+                    />
+                </FormGroup>
 
                     <Row>
                         <Col sm={{size: '4', offset: 8}}>
