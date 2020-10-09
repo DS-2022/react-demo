@@ -1,5 +1,5 @@
 import React from 'react';
-import APIResponseErrorMessage from "../../commons/errorhandling/api-response-error-message";
+import APIResponseErrorMessage from "../commons/errorhandling/api-response-error-message";
 import {
     Button,
     Card,
@@ -10,29 +10,14 @@ import {
     ModalHeader,
     Row
 } from 'reactstrap';
-import Table from "../../commons/tables/table"
-import PersonForm from "./person-form";
+import PersonForm from "./components/person-form";
 
 import * as API_USERS from "./api/person-api"
+import PersonTable from "./components/person-table";
 
-const columns = [
-    {
-        Header: 'Name',
-        accessor: 'name',
-    },
-    {
-        Header: 'Age',
-        accessor: 'age',
-    }
-];
 
-const filters = [
-    {
-        accessor: 'name',
-    }
-];
 
-class Persons extends React.Component {
+class PersonContainer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -98,25 +83,14 @@ class Persons extends React.Component {
                     <br/>
                     <Row>
                         <Col sm={{size: '8', offset: 1}}>
-                            {this.state.isLoaded &&
-                            <Table
-                                data={this.state.tableData}
-                                columns={columns}
-                                search={filters}
-                                pageSize={5}
-                            />
-                            }
-
-                            {this.state.errorStatus > 0 &&
-                            <APIResponseErrorMessage
-                                errorStatus={this.state.errorStatus}
-                                error={this.state.error}
-                            />
-                            }
+                            {this.state.isLoaded && <PersonTable tableData = {this.state.tableData}/>}
+                            {this.state.errorStatus > 0 && <APIResponseErrorMessage
+                                                            errorStatus={this.state.errorStatus}
+                                                            error={this.state.error}
+                                                        />   }
                         </Col>
                     </Row>
                 </Card>
-
 
                 <Modal isOpen={this.state.selected} toggle={this.toggleForm}
                        className={this.props.className} size="lg">
@@ -133,4 +107,4 @@ class Persons extends React.Component {
 }
 
 
-export default Persons;
+export default PersonContainer;

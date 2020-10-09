@@ -1,12 +1,10 @@
 import React from 'react';
 import validate from "./validators/person-validators";
-import TextInput from "./fields/TextInput";
-import './fields/fields.css';
 import Button from "react-bootstrap/Button";
-import * as API_USERS from "./api/person-api";
+import * as API_USERS from "../api/person-api";
 import APIResponseErrorMessage from "../../commons/errorhandling/api-response-error-message";
 import {Col, Row} from "reactstrap";
-import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Form, FormGroup, Input, Label} from 'reactstrap';
+import { FormGroup, Input, Label} from 'reactstrap';
 
 
 
@@ -164,6 +162,7 @@ class PersonForm extends React.Component {
                 <FormGroup id='age'>
                     <Label for='ageField'> Age: </Label>
                     <Input name='age' id='ageField' placeholder={this.state.formControls.age.placeholder}
+                           min={0} max={100} type="number"
                            onChange={this.handleChange}
                            defaultValue={this.state.formControls.age.value}
                            touched={this.state.formControls.age.touched? 1 : 0}
